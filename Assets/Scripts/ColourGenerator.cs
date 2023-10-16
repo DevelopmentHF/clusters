@@ -9,6 +9,7 @@ public class ColourGenerator : MonoBehaviour
     [SerializeField] private SpriteRenderer sprite;
     private System.Random rng = new System.Random();
     private List<List<Color>> palettes = new List<List<Color>>();
+    private static List<Color> palette = null;
 
     private void Awake()
     {   
@@ -48,10 +49,13 @@ public class ColourGenerator : MonoBehaviour
     void Start()
     {
         // pick one of our predefined palettes. Would love to have this also randomised at some point.
-        List<Color> rngPalette = palettes[rng.Next(palettes.Count)];
+        if (palette == null)
+        {
+            palette = palettes[rng.Next(palettes.Count)];
+        }
         
         sprite = GetComponent<SpriteRenderer>();
-        sprite.color = GenerateNewColor(rngPalette);
+        sprite.color = GenerateNewColor(palette);
     }
 
     // Update is called once per frame
@@ -62,8 +66,8 @@ public class ColourGenerator : MonoBehaviour
         
     }
 
-    private Color GenerateNewColor(List<Color> palette)
+    private Color GenerateNewColor(List<Color> rngPalette)
     {
-        return palette[rng.Next(palette.Count)];
+        return rngPalette[rng.Next(rngPalette.Count)];
     }
 }
