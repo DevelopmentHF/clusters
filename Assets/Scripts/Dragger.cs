@@ -66,7 +66,6 @@ public class Dragger : MonoBehaviour
                 }
             }
         #endif
-        Debug.Log("moves made: " + movesMade);
     }
 
     void ResetClusters()
