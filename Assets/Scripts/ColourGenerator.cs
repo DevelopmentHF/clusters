@@ -10,6 +10,7 @@ public class ColourGenerator : MonoBehaviour
     private System.Random rng = new System.Random();
     private List<List<Color>> palettes = new List<List<Color>>();
     private static List<Color> palette = null;
+    private Camera camera;
 
     private void Awake()
     {   
@@ -19,15 +20,6 @@ public class ColourGenerator : MonoBehaviour
             new Color(32f / 255f, 78f / 255f, 241f / 255f),
             new Color(40f / 255f, 176f / 255f, 243f / 255f),
             new Color(251f / 255f, 251f / 255f, 251f / 255f)
-        };
-
-        List<Color> vapor = new List<Color>
-        {
-            new Color(45f / 255f, 38f / 255f, 239f / 255f),
-            new Color(255f / 255f, 93f / 255f, 239f / 255f),
-            new Color(135f / 255f, 70f / 255f, 253f / 255f),
-            new Color(8f / 255f, 142f / 255f, 253f / 255f),
-            new Color(2f / 255f, 165f / 255f, 205f / 255f)
         };
 
         List<Color> crimson = new List<Color>
@@ -41,13 +33,14 @@ public class ColourGenerator : MonoBehaviour
 
         // Add the palette to your list of palettes
         palettes.Add(arctic);
-        palettes.Add(vapor);
         palettes.Add(crimson);
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        camera = Camera.main;
+        
         // pick one of our predefined palettes. Would love to have this also randomised at some point.
         if (palette == null)
         {
@@ -56,6 +49,7 @@ public class ColourGenerator : MonoBehaviour
         
         sprite = GetComponent<SpriteRenderer>();
         sprite.color = GenerateNewColor(palette);
+        camera.backgroundColor = palette[0];
     }
 
     // Update is called once per frame
@@ -68,6 +62,6 @@ public class ColourGenerator : MonoBehaviour
 
     private Color GenerateNewColor(List<Color> rngPalette)
     {
-        return rngPalette[rng.Next(rngPalette.Count)];
+        return rngPalette[rng.Next(1, rngPalette.Count)];
     }
 }
