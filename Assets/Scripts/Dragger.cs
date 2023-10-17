@@ -71,6 +71,7 @@ public class Dragger : MonoBehaviour
 
                     case TouchPhase.Ended:
                         isDragging = false;
+                        ResetClusters();
                         break;
                 }
             }
@@ -107,8 +108,18 @@ public class Dragger : MonoBehaviour
         #if UNITY_EDITOR
             Vector3 mousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10);
             Vector3 objPosition = cam.ScreenToWorldPoint(mousePosition);
-            ResetClusters();
+            if (!isDragging)
+            {
+                ResetClusters();
+            }
+            isDragging = true;
             transform.position = objPosition;
         #endif
+    }
+
+    void OnMouseUp()
+    {
+        isDragging = false;
+        ResetClusters();
     }
 }
