@@ -18,7 +18,6 @@ public class ClusterCount : MonoBehaviour
     void Update()
     {
         clusters = GameObject.FindGameObjectsWithTag("Cluster");
-
         textMeshPro.text = "Clusters = " + clusters.Length;
     }
 }

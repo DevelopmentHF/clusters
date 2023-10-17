@@ -55,11 +55,9 @@ public class ColourGenerator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // TODO: Colour changes passively over time
-        
         
     }
-
+    
     private Color GenerateNewColor(List<Color> rngPalette)
     {
         return rngPalette[rng.Next(1, rngPalette.Count)];
