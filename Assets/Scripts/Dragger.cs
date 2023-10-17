@@ -12,6 +12,7 @@ public class Dragger : MonoBehaviour
     public bool isDragging = false;
     [SerializeField] private Collider2D collider2d;
     private GameObject[] circles;
+    public static int movesMade = 0;
 
     private void Start()
     {
@@ -30,18 +31,6 @@ public class Dragger : MonoBehaviour
             collider2d.isTrigger = false;
         }
         
-        #if UNITY_EDITOR
-            if (Input.GetMouseButton(0))
-            {
-                isDragging = true;
-                
-            }
-            else
-            {
-                isDragging = false;
-            }
-        #endif
-        
         #if UNITY_ANDROID
             if (Input.touchCount > 0)
             {
@@ -59,6 +48,7 @@ public class Dragger : MonoBehaviour
                             ResetClusters();
                             offset = transform.position - objPosition;
                             isDragging = true;
+                            movesMade++;
                         }
                         break;
 
@@ -76,7 +66,7 @@ public class Dragger : MonoBehaviour
                 }
             }
         #endif
-        
+        Debug.Log("moves made: " + movesMade);
     }
 
     void ResetClusters()
@@ -88,18 +78,9 @@ public class Dragger : MonoBehaviour
         {
             // Create a new parent for the current circle with a unique name
             float uniqueTime = Time.realtimeSinceStartup;
-            Debug.Log("new cluster unique name = " + "CircleCluster" + uniqueTime + "_" + i);
             GameObject newParent = new GameObject("CircleCluster" + uniqueTime + "_" + i++);
             newParent.tag = "Cluster";
             circle.transform.parent = newParent.transform;
-        }
-    }
-    
-    void OnTriggerEnter2D(Collider2D col)
-    {
-        if (col.gameObject.CompareTag("Circle"))
-        {
-            Debug.Log("Currently overlapping");
         }
     }
     
@@ -110,6 +91,7 @@ public class Dragger : MonoBehaviour
             Vector3 objPosition = cam.ScreenToWorldPoint(mousePosition);
             if (!isDragging)
             {
+                movesMade++;
                 ResetClusters();
             }
             isDragging = true;
