@@ -30,6 +30,7 @@ public class ColourGenerator : MonoBehaviour
             new Color(223f / 255f, 1f / 255f, 13f / 255f),
             new Color(235f / 255f, 0f, 11f / 255f)
         };
+        
 
         // Add the palette to your list of palettes
         palettes.Add(arctic);

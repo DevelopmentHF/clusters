@@ -9,7 +9,7 @@ public class Dragger : MonoBehaviour
 
     private Camera cam;
     private Vector3 offset;
-    public bool isDragging = false;
+    public static bool isDragging = false;
     [SerializeField] private Collider2D collider2d;
     private GameObject[] circles;
     public static int movesMade = 0;

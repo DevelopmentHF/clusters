@@ -7,14 +7,12 @@ public class ClusterCheck : MonoBehaviour
     private GameObject[] circles;
     private const float Threshold = 0.15f;
     private bool inCluster;
-    private Dragger draggerScript;
     
     // Start is called before the first frame update
     void Start()
     {
         // Find all GameObjects with the "Circle" tag
         circles = GameObject.FindGameObjectsWithTag("Circle");
-        draggerScript = GetComponent<Dragger>();
     }
 
     // Update is called once per frame
@@ -22,7 +20,7 @@ public class ClusterCheck : MonoBehaviour
     {
         
         // assign to a cluster
-        if (draggerScript.isDragging) return;
+        if (Dragger.isDragging) return;
 
         inCluster = false;
 
