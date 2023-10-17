@@ -9,7 +9,7 @@ public class Dragger : MonoBehaviour
 
     private Camera cam;
     private Vector3 offset;
-    private bool isDragging = false;
+    public bool isDragging = false;
     [SerializeField] private Collider2D collider2d;
 
     private void Start()
@@ -72,6 +72,7 @@ public class Dragger : MonoBehaviour
                 }
             }
         #endif
+        
     }
 
     void OnTriggerEnter2D(Collider2D col)
