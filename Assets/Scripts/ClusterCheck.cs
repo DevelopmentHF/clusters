@@ -25,41 +25,37 @@ public class ClusterCheck : MonoBehaviour
         if (draggerScript.isDragging) return;
 
         inCluster = false;
-        
-        // for the current game object, add it to it's nearest cluster.
-        // if the gameObject is no longer touching anything, make it's own cluster
+
         for (int i = 0; i < circles.Length; i++)
         {
             if (circles[i] == gameObject) continue;
-            
-            // Calculate distance between circle centers
-            float distance = Vector3.Distance(circles[i].transform.position, transform.position);
 
-            // Calculate combined radius for both circles
+            float distance = Vector3.Distance(circles[i].transform.position, transform.position);
             float combinedRadius = GetWorldSpaceRadius(circles[i]) + GetWorldSpaceRadius(gameObject);
 
             if (distance < combinedRadius + Threshold)
             {
-                // The edges are now within the threshold of each other
-                // Add the second circle to the cluster of the first
-                inCluster = true;
-                circles[i].transform.parent = transform.parent;
-                break;
+                if (!inCluster)
+                {
+                    inCluster = true;
+                    circles[i].transform.parent = transform.parent;
+                }
             }
         }
+
         if (!inCluster)
         {
-            Debug.Log("not in cluster");
-            GameObject newParent = new GameObject("CircleCluster" + Time.deltaTime);    // unique name
+            // Create a new parent for the current circle if it's not in a cluster
+            GameObject newParent = new GameObject("CircleCluster" + Time.deltaTime); // unique name
             newParent.tag = "Cluster";
             transform.parent = newParent.transform;
         }
-
+        
         CheckTouchingClusters();
 
         RemoveEmptyClusters();
     }
-
+    
     void CheckTouchingClusters()
     {
         // for the current game object, add it to it's nearest cluster.
@@ -75,9 +71,9 @@ public class ClusterCheck : MonoBehaviour
             float combinedRadius = GetWorldSpaceRadius(circles[i]) + GetWorldSpaceRadius(gameObject);
 
             if (distance < combinedRadius + Threshold)
-            {   
+            {
                 // touching a cluster that isn't its own
-                if (transform.parent != circles[i].transform.parent)
+                if (transform.parent.name != circles[i].transform.parent.name)
                 {
                     JoinCluster(transform.parent, circles[i].transform.parent);
                 }

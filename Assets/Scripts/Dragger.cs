@@ -11,10 +11,12 @@ public class Dragger : MonoBehaviour
     private Vector3 offset;
     public bool isDragging = false;
     [SerializeField] private Collider2D collider2d;
+    private GameObject[] circles;
 
     private void Start()
     {
         cam = Camera.main;
+        circles = GameObject.FindGameObjectsWithTag("Circle");
     }
 
     void Update()
@@ -54,6 +56,7 @@ public class Dragger : MonoBehaviour
                         Collider2D hit = Physics2D.OverlapPoint(objPosition);
                         if (hit != null && hit.gameObject == gameObject)
                         {
+                            ResetClusters();
                             offset = transform.position - objPosition;
                             isDragging = true;
                         }
@@ -75,6 +78,22 @@ public class Dragger : MonoBehaviour
         
     }
 
+    void ResetClusters()
+    {
+        circles = GameObject.FindGameObjectsWithTag("Circle");
+        int i = 0;
+
+        foreach (GameObject circle in circles)
+        {
+            // Create a new parent for the current circle with a unique name
+            float uniqueTime = Time.realtimeSinceStartup;
+            Debug.Log("new cluster unique name = " + "CircleCluster" + uniqueTime + "_" + i);
+            GameObject newParent = new GameObject("CircleCluster" + uniqueTime + "_" + i++);
+            newParent.tag = "Cluster";
+            circle.transform.parent = newParent.transform;
+        }
+    }
+    
     void OnTriggerEnter2D(Collider2D col)
     {
         if (col.gameObject.CompareTag("Circle"))
@@ -88,7 +107,7 @@ public class Dragger : MonoBehaviour
         #if UNITY_EDITOR
             Vector3 mousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10);
             Vector3 objPosition = cam.ScreenToWorldPoint(mousePosition);
-        
+            ResetClusters();
             transform.position = objPosition;
         #endif
     }
