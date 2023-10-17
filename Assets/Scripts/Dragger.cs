@@ -82,11 +82,6 @@ public class Dragger : MonoBehaviour
         }
     }
     
-    private Vector3 FindSuitablePosition(Vector3 pos)
-    {
-        return pos + offset;
-    }
-    
     void OnMouseDrag()
     {
         #if UNITY_EDITOR
