@@ -20,7 +20,7 @@ public class ClusterCheck : MonoBehaviour
     {
         
         // assign to a cluster
-        if (Dragger.isDragging) return;
+        if (Dragger.isStaticDragging) return;
 
         inCluster = false;
 

@@ -9,7 +9,8 @@ public class Dragger : MonoBehaviour
 
     private Camera cam;
     private Vector3 offset;
-    public static bool isDragging = false;
+    public bool isDragging = false;
+    public static bool isStaticDragging = false;
     [SerializeField] private Collider2D collider2d;
     private GameObject[] circles;
     public static int movesMade = 0;
@@ -65,7 +66,8 @@ public class Dragger : MonoBehaviour
                         break;
                 }
             }
-        #endif
+            isStaticDragging = isDragging;
+            #endif
     }
 
     void ResetClusters()

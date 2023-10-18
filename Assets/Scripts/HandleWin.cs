@@ -40,7 +40,7 @@ public class HandleWin : MonoBehaviour
         }
         
         // Win
-        if (clusters.Length == 1 && (numMovesUsed <= numberOfMovesAllowed) && !Dragger.isDragging)
+        if (clusters.Length == 1 && (numMovesUsed <= numberOfMovesAllowed) && !Dragger.isStaticDragging)
         {
             Debug.Log("clusters:" + clusters.Length);
             GameObject[] circles = GameObject.FindGameObjectsWithTag("Circle");
