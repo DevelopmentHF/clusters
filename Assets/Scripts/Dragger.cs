@@ -98,6 +98,7 @@ public class Dragger : MonoBehaviour
             isDragging = true;
             transform.position = objPosition;
             isStaticDragging = isDragging;
+            Debug.Log("Dragging");
 #endif
     }
 

@@ -34,13 +34,9 @@ public class HandleWin : MonoBehaviour
             Debug.Log("Currently dragging, can't decide on win condition");
             return;
         }
-        else if (!Dragger.isStaticDragging)
-        {
-            Debug.Log("all good");
-        }
         
         // Lose
-        if (numMovesUsed == numberOfMovesAllowed)
+        if (numMovesUsed > numberOfMovesAllowed)
         {
             // Get the screen center
             Vector3 screenCenter = new Vector3(Screen.width / 2, Screen.height / 2, 0);
