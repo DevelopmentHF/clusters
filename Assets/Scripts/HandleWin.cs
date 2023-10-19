@@ -10,6 +10,7 @@ public class HandleWin : MonoBehaviour
     private GameObject[] clusters;
     [SerializeField] private int numberOfMovesAllowed;
     public int numMovesUsed = 0;
+    public int numTargetClusters;
     [SerializeField] TMP_Text textMeshPro;
 
     private Camera cam;
@@ -27,8 +28,17 @@ public class HandleWin : MonoBehaviour
     {
         clusters = GameObject.FindGameObjectsWithTag("Cluster");
         numMovesUsed = Dragger.movesMade;
-        Debug.Log("moves made: " + numMovesUsed);
-        Debug.Log("static moves made: " + Dragger.movesMade);
+
+        if (Dragger.isStaticDragging)
+        {
+            Debug.Log("Currently dragging, can't decide on win condition");
+            return;
+        }
+        else if (!Dragger.isStaticDragging)
+        {
+            Debug.Log("all good");
+        }
+        
         // Lose
         if (numMovesUsed == numberOfMovesAllowed)
         {
@@ -40,7 +50,7 @@ public class HandleWin : MonoBehaviour
         }
         
         // Win
-        if (clusters.Length == 1 && (numMovesUsed <= numberOfMovesAllowed) && !Dragger.isStaticDragging)
+        if (clusters.Length == numTargetClusters && (numMovesUsed <= numberOfMovesAllowed))
         {
             Debug.Log("clusters:" + clusters.Length);
             GameObject[] circles = GameObject.FindGameObjectsWithTag("Circle");

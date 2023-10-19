@@ -1157,8 +1157,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bf42c5ab3a044f60a1012cdd6fe9ea2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberOfMovesAllowed: 7
+  numberOfMovesAllowed: 4
   numMovesUsed: 0
+  numTargetClusters: 1
   textMeshPro: {fileID: 747648130}
 --- !u!1001 &1177359274
 PrefabInstance:

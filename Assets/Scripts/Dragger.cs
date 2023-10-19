@@ -97,12 +97,14 @@ public class Dragger : MonoBehaviour
             }
             isDragging = true;
             transform.position = objPosition;
-        #endif
+            isStaticDragging = isDragging;
+#endif
     }
 
     void OnMouseUp()
     {
         isDragging = false;
+        isStaticDragging = isDragging;
         ResetClusters();
     }
 }
