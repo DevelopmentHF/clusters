@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ColourGenerator : MonoBehaviour
 {
@@ -37,9 +38,22 @@ public class ColourGenerator : MonoBehaviour
         palettes.Add(crimson);
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private void OnEnable()
     {
+        SceneManager.sceneUnloaded += OnSceneUnloaded;
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+    
+    private void OnDisable()
+    {
+        SceneManager.sceneUnloaded -= OnSceneUnloaded;
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+    
+    // Start is called before the first frame update
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        
         camera = Camera.main;
         
         // pick one of our predefined palettes. Would love to have this also randomised at some point.
@@ -51,6 +65,12 @@ public class ColourGenerator : MonoBehaviour
         sprite = GetComponent<SpriteRenderer>();
         sprite.color = GenerateNewColor(palette);
         camera.backgroundColor = palette[0];
+    }
+    
+    private void OnSceneUnloaded(Scene scene)
+    {
+        // Perform actions when the scene is unloaded
+        // Save data or perform cleanup, if necessary
     }
 
     // Update is called once per frame

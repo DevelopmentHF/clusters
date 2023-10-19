@@ -18,5 +18,6 @@ public class LoadLevel : MonoBehaviour
     public void OpenScene()
     {
         SceneManager.LoadScene("Level " + level.ToString());
+        Dragger.movesMade = 0;
     }
 }

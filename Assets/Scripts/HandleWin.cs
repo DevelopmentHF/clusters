@@ -38,11 +38,19 @@ public class HandleWin : MonoBehaviour
         // Lose
         if (numMovesUsed > numberOfMovesAllowed)
         {
+            GameObject[] circles = GameObject.FindGameObjectsWithTag("Circle");
+            foreach (GameObject circle in circles)
+            {
+                SpriteRenderer spriteRenderer = circle.GetComponent<SpriteRenderer>();
+                spriteRenderer.color = Color.black;
+            }
+            
             // Get the screen center
             Vector3 screenCenter = new Vector3(Screen.width / 2, Screen.height / 2, 0);
 
             // move button to center to stop play
             gameObject.transform.position = screenCenter;
+            gameObject.transform.localScale = new Vector3(2, 2, 2); // double it's size
         }
         
         // Win
